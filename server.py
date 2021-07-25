@@ -16,7 +16,7 @@ mongo2 = PyMongo(app, uri="mongodb://readWrite:{}@{}:27017/second_database".form
 
 @app.route("/", methods=["GET"])
 def home():
-    return jsonify("Hello World!")
+    return "Welcome to MongoDB, Docker and Jenkins Configuration Task Verification Page."
 
 @app.route("/api", methods=["GET"])
 def response_data():
