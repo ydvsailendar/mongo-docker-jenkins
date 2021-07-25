@@ -15,11 +15,6 @@ pipeline {
                 sh "docker image prune -a --force"
             }
         }
-        stage("Docker Container Cleanup"){
-            steps{
-                sh "docker container prune --force"
-            }
-        }
         stage("Docker Build"){
             steps{
                 sh "docker build . -t task:${DOCKER_TAG}"
