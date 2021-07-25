@@ -134,4 +134,7 @@ The above concludes the db operations and steps.
 - Go to create item and give a name, select pipeline and hit ok
 - under pipeline definition select *_Pipeline script from SCM_* enter [the github url](https://github.com/ydvsailendar/mongo-docker-jenkins), select *_master_* branch and Jenkinsfile and save.
 - run build and go [here](http://localhost:5000) to test the image and the task
+- to remove the local container and images do
+- `docker stop $(docker ps -a -q) -t 10`
+- `docker rm $(docker ps -a -q)`
 - The build is currently manual as with every changes you will have to manually go the the jenkins dashboard and run the build.
