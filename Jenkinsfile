@@ -3,7 +3,6 @@ pipeline {
     agent any
     environment {
       DOCKER_TAG = getVersion()
-      PS = dockerList()
     }
     stages{
         stage("SCM"){
@@ -13,12 +12,12 @@ pipeline {
         }
         stage("Docker Stop"){
             steps{
-                sh "docker stop ${PS}"
+                sh "docker stop $(docker ps -a -q)"
             }
         }
         stage("Docker Remove"){
             steps{
-                sh "docker rm ${PS}"
+                sh "docker rm $(docker ps -a -q)"
             }
         }
         stage("Docker Build"){
@@ -37,9 +36,4 @@ pipeline {
 def getVersion(){
     def commitHash = sh returnStdout: true, script: "git rev-parse --short HEAD"
     return commitHash
-}
-
-def dockerList(){
-    def ps = sh returnStdout: true, script: "docker ps -a -q"
-    return ps
 }
