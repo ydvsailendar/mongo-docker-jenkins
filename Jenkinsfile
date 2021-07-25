@@ -10,6 +10,11 @@ pipeline {
                 git 'https://github.com/ydvsailendar/mongo-docker-jenkins'
             }
         }
+        stage("Docker Image Cleanup"){
+            steps{
+                sh "docker image prune -a --force --filter 'until=1h'"
+            }
+        }
         stage("Docker Build"){
             steps{
                 sh "docker build . -t task:${DOCKER_TAG}"
@@ -18,11 +23,6 @@ pipeline {
         stage("Docker Run"){
             steps{
                 sh "docker run -d --net=host -p 5000:5000 task:${DOCKER_TAG}"
-            }
-        }
-        stage("Docker Image Cleanup"){
-            steps{
-                sh "docker image prune -a --force --filter 'until=1h'"
             }
         }
     }
