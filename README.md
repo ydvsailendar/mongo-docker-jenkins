@@ -82,7 +82,7 @@
 
 The above concludes the db operations and steps.
 
-# fusemachines tasks process documentation Docker and MongoDB:
+# fusemachines tasks process documentation Docker and MongoDB and Jenkins:
 
 ## Task 1: Database
 ### To test the working of the mongodb in the local system with user role we need to do the following the database configuration step follows the first task database integration:
@@ -90,19 +90,17 @@ The above concludes the db operations and steps.
 - under security add `authorization: enabled`
 - Restart mongo server using `sudo service mongodb restart`
 - There are 3 api one for fetch 2 for posting to each databases
-  - `local_server_url/api` [GET] returns users from first database and products from second database
-  - `local_server_url/api/add/user` [POST] returns error message showing permission issues when used read role to write on first_database
-  - `local_server_url/api/add/product` [POST] returns product id of the newly added document to second_database inside products collection
+  - `localhost:5000` [GET] returns a welcome text
+  - `localhost:5000/api` [GET] returns users from first database and products from second database
+  - `localhost:5000/api/add/user` [POST] returns error message showing permission issues when used read role to write on first_database
+  - `localhost:5000/api/add/product` [POST] returns product id of the newly added document to second_database inside products collection
 
 ## Task 2: Docker
 - [Install Docker](https://docs.docker.com/engine/install/ubuntu/)
-### python application is inside the app folder
+### python application is server.py file and .env which is currently pushed to repo as there is nothing of importance and ease of testing the task
 ### Use multi-stage build to write the Dockerfile [in dockerfile]
 - as the mongod instance is standalone and running in local machine
-- i had to run the docker on the host network to achieve for that i added flag of `--net=host` on the docker run command for this and also updated the mongo connection string from localhost to my ip address so you will be needing to do the same
-- to login to docker do `docker login`
-- To build the docker image run `docker build -t ydvsailendar/task:latest .`
-- To run the image locally do `docker run --net=host  -p 5000:5000 -it ydvsailendar/task:latest`
+- i had to run the docker on the host network to achieve for that i added flag of `--net=host` on the docker run command for this
 
 ## Task 3: Deployment
 ### Install/Configure Jenkins on your local system
@@ -133,8 +131,13 @@ The above concludes the db operations and steps.
 - Creating the first administrator user
 - Go to create item and give a name, select pipeline and hit ok
 - under pipeline definition select *_Pipeline script from SCM_* enter [the github url](https://github.com/ydvsailendar/mongo-docker-jenkins), select *_master_* branch and Jenkinsfile and save.
+- you will face issues *_docker: command not found_* to resolve this add permission to jenkins users to do that do `sudo usermod -a -G docker jenkins` which adds jenkins user to docker group
+- `sudo sytemctl restart jenkins` for the above config to reflect
+- Browse to http://localhost:8080 (or whichever port you configured for Jenkins when installing it) and wait until the Unlock Jenkins page appears.
+- login and select the pipeline
 - run build and go [here](http://localhost:5000) to test the image and the task
 - to remove the local container and images do
 - `docker stop $(docker ps -a -q) -t 10`
 - `docker rm $(docker ps -a -q)`
+- `docker system prune -a -f`
 - The build is currently manual as with every changes you will have to manually go the the jenkins dashboard and run the build.
