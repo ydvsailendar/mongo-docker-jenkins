@@ -20,11 +20,6 @@ pipeline {
                 sh "docker run -d --net=host -p 5000:5000 task:${DOCKER_TAG}"
             }
         }
-        stage("Docker Cleanup"){
-            steps{
-                sh "docker system prune -a -f"
-            }
-        }
     }
 }
 
