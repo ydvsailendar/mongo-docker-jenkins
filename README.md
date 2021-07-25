@@ -95,6 +95,7 @@ The above concludes the db operations and steps.
   - `local_server_url/api/add/product` [POST] returns product id of the newly added document to second_database inside products collection
 
 ## Task 2: Docker
+- [Install Docker](https://docs.docker.com/engine/install/ubuntu/)
 ### python application is inside the app folder
 ### Use multi-stage build to write the Dockerfile [in dockerfile]
 - as the mongod instance is standalone and running in local machine
