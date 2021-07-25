@@ -10,9 +10,14 @@ pipeline {
                 git 'https://github.com/ydvsailendar/mongo-docker-jenkins'
             }
         }
-        stage("Docker Image Cleanup"){
+        stage("Docker Stop"){
             steps{
-                sh "docker image prune -a --force"
+                sh "docker stop $(docker ps -a -q)"
+            }
+        }
+        stage("Docker Remove"){
+            steps{
+                sh "docker rm $(docker ps -a -q)"
             }
         }
         stage("Docker Build"){
