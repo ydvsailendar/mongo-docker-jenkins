@@ -10,11 +10,6 @@ pipeline {
                 git "https://github.com/ydvsailendar/mongo-docker-jenkins"
             }
         }
-        stage("Docker Cleanup"){
-            steps{
-                sh "docker system prune --all"
-            }
-        }
         stage("Docker Build"){
             steps{
                 sh "docker build . -t task:${DOCKER_TAG}"
