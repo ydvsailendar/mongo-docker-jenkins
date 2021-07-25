@@ -131,3 +131,7 @@ The above concludes the db operations and steps.
   - install suggested plugins 
 
 - Creating the first administrator user
+- Go to create item and give a name, select pipeline and hit ok
+- under pipeline definition select *_Pipeline script from SCM_* enter [the github url](https://github.com/ydvsailendar/mongo-docker-jenkins), select *_master_* branch and Jenkinsfile and save.
+- run build and go [here](http://localhost:5000) to test the image and the task
+- The build is currently manual as with every changes you will have to manually go the the jenkins dashboard and run the build.

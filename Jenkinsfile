@@ -22,7 +22,7 @@ pipeline {
         }
         stage("Docker Image Cleanup"){
             steps{
-                sh "docker image prune -a --force --filter 'until=2h'"
+                sh "docker image prune -a --force --filter 'until=1h'"
             }
         }
     }
